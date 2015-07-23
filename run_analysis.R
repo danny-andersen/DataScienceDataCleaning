@@ -31,10 +31,12 @@ all <- rbind(fulltest,fulltrain)
 meanAndStd <- all[,grep("Subject|Activity|*[M|m]ean*|*std*", names(all), value = TRUE)]
 
 #Change the activity variable to meaningful names
-for (i in 1:6) meanAndStd[meanAndStd$Activity == i, "Activity"] <- as.character(activities[activities$num == i,2])
+for (i in 1:max(meanAndStd$Activity)){
+  meanAndStd[meanAndStd$Activity == i, "Activity"] <- as.character(activities[activities$num == i,2])
+} 
 
 #Calculate mean of each variable grouped by activity for each subject
-for (i in 1:30) {
+for (i in 1:max(meanAndStd$Subject)) {
   res<- aggregate(meanAndStd[meanAndStd$Subject==i,], by=list(meanAndStd[meanAndStd$Subject==i, c("Activity")]), "mean")
   if (i == 1) {
     tidySet <- res
