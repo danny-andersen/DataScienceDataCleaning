@@ -37,7 +37,7 @@ for (i in 1:max(meanAndStd$Activity)){
 
 #Calculate mean of each variable grouped by activity for each subject
 for (i in 1:max(meanAndStd$Subject)) {
-  res<- aggregate(meanAndStd[meanAndStd$Subject==i,], by=list(meanAndStd[meanAndStd$Subject==i, c("Activity")]), "mean")
+  res<- suppressWarnings(aggregate(meanAndStd[meanAndStd$Subject==i,], by=list(meanAndStd[meanAndStd$Subject==i, c("Activity")]), "mean"))
   if (i == 1) {
     tidySet <- res
   } else {
@@ -45,9 +45,9 @@ for (i in 1:max(meanAndStd$Subject)) {
     tidySet <- rbind(tidySet, res)
   }
 }
-#Remove defunct Activity column
+#Remove defunct old Activity column
 tidySet$Activity <- NULL
-#Rename first column
+#Rename first column to Activity
 n <- names(tidySet)
 names(tidySet) <- c("Activity", n[2:length(n)])
 
