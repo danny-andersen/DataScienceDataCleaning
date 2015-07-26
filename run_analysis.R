@@ -51,5 +51,15 @@ tidySet$Activity <- NULL
 n <- names(tidySet)
 names(tidySet) <- c("Activity", n[2:length(n)])
 
+#Set Activity and Subject as factors
+tidySet$Activity <- factor(tidySet$Activity)
+tidySet$Subject <- factor(tidySet$Subject)
+
+#Make the variable names useable
+n <- names(tidySet)
+n2<- gsub(pattern="-|,", ".", n)
+n3 <- gsub("\\(|\\)", "", n2)
+names(tidySet) <- n3
+
 #Done - save results
 write.table(tidySet,file = "tidyDataSet.txt", row.names = FALSE)
