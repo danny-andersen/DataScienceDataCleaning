@@ -59,7 +59,8 @@ tidySet$Subject <- factor(tidySet$Subject)
 n <- names(tidySet)
 n2<- gsub(pattern="-|,", ".", n)
 n3 <- gsub("\\(|\\)", "", n2)
-names(tidySet) <- n3
+n4 <- tolower(n3)
+names(tidySet) <- n4
 
 #Done - save results
 write.table(tidySet,file = "tidyDataSet.txt", row.names = FALSE)
